@@ -25,7 +25,7 @@ public class InGameHudMixin {
     }
     // toggle renderCrosshair depending on settings
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
-    public void renderCrosshair(GuiGraphics guiGraphics, CallbackInfo ci){
+    public void renderCrosshair(GuiGraphics guiGraphics, float f, CallbackInfo ci){
         if(!SpyglassImprovementsClient.getInstance().settings.showCrossHair && Minecraft.getInstance().player.isScoping())
             ci.cancel();
     }

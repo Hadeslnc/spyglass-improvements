@@ -1,6 +1,6 @@
 package me.juancarloscp52.spyglass_improvements.mixin;
 
-import me.juancarloscp52.spyglass_improvements.SpyglassImprovements;
+import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -12,7 +12,7 @@ public class PlayerEntityMixin {
 
     @Inject(method = "isScoping", at=@At("RETURN"),cancellable = true)
     public void forceSpyglass(CallbackInfoReturnable<Boolean> cir){
-        cir.setReturnValue(cir.getReturnValue() || SpyglassImprovements.FORCE_SPYGLASS);
+        cir.setReturnValue(cir.getReturnValue() || SpyglassImprovementsClient.force_spyglass);
     }
 
 }

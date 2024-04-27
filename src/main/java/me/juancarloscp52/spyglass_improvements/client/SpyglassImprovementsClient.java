@@ -8,13 +8,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Inventory;
@@ -33,7 +29,7 @@ import java.io.IOException;
 @Environment(EnvType.CLIENT)
 public class SpyglassImprovementsClient implements ClientModInitializer {
 
-    private boolean force_spyglass = false;
+    public static boolean force_spyglass = false;
     private boolean trinketsLoaded = false;
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -108,12 +104,9 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
 
             } else if (!useSpyglass.isDown() && force_spyglass){
                 // Release force spyglass when not pressing the key-bind
-                FriendlyByteBuf buf = PacketByteBufs.create();
-                buf.writeBoolean(false);
                 force_spyglass = false;
+                //ClientPlayNetworking.send(new SpyglassTogglePacket(false));
                 player.playSound(SoundEvents.SPYGLASS_STOP_USING, 1.0f, 1.0f);
-                ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
-
             }
         });
 
@@ -123,11 +116,10 @@ public class SpyglassImprovementsClient implements ClientModInitializer {
     private void forceUseSpyglass(LocalPlayer player) {
         if(force_spyglass)
             return;
-        FriendlyByteBuf buf = PacketByteBufs.create();
-        buf.writeBoolean(true);
+
         force_spyglass = true;
+        //ClientPlayNetworking.send(new SpyglassTogglePacket(true));
         player.playSound(SoundEvents.SPYGLASS_USE, 1.0f, 1.0f);
-        ClientPlayNetworking.send(new ResourceLocation("spyglass-improvements", "toggle"), buf);
     }
 
     public void loadSettings() {

@@ -28,7 +28,7 @@ public abstract class MouseMixin {
 
     @Shadow private double accumulatedDY;
 
-    @Shadow private double lastMouseEventTime;
+    @Shadow private double lastHandleMovementTime;
 
     @Inject(method = "onScroll",at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;swapPaint(D)V"),cancellable = true)
     private void onScroll(long window, double horizontal, double vertical, CallbackInfo ci){
@@ -46,8 +46,8 @@ public abstract class MouseMixin {
         if (null != minecraft.player && minecraft.options.getCameraType().isFirstPerson() && minecraft.player.isScoping()){
 
             double d = Blaze3D.getTime();
-            double e = d - this.lastMouseEventTime;
-            this.lastMouseEventTime = d;
+            double e = d - this.lastHandleMovementTime;
+            this.lastHandleMovementTime = d;
             double displacementX,displacementY;
 
             double sensitivity = this.minecraft.options.sensitivity().get() * .6 + .2;
