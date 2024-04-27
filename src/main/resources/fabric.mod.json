@@ -14,7 +14,7 @@
   },
   "license": "GPL-3.0",
   "icon": "assets/spyglass-improvements/icon.png",
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
     "client": [
       "me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient"
