@@ -17,10 +17,10 @@ Available versions:
 ### Fixed
 
 -   Fabric:
-    -   Fixed Spyglass not toggling while playing on servers in the following cases:
-    - Spyglass would not toggle when in creative mode.
-    - Spyglass would not toggle when the item is located in the trinket space.*
-        - *NOTE:* When using trinkets on multiplayer, Spyglass-Improvements should also be installed on server side.
+    - Fixed Spyglass not toggling while playing on servers in the following cases:
+      - Spyglass would not toggle when in creative mode.
+      - Spyglass would not toggle when the item is located in the trinket space.*
+          - *NOTE:* When using trinkets on multiplayer, Spyglass-Improvements should also be installed on server side.
 
 ## [1.5] - 2024-01-31 (forge) - 2024-03-27 (fabric)
 
