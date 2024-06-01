@@ -9,10 +9,21 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.2] - 2024-06-01 (fabric)
+
+Available versions:
+-   Fabric: 1.20.5, 1.20.6
+
+### Fixed
+
+-   Fabric:
+    - Fixed Spyglass settings button position.
+
+
 ## [1.5.1] - 2024-04-27 (fabric)
 
 Available versions:
--   Fabric: 1.18.2, 1.19.4, 1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4
+-   Fabric: 1.18.2, 1.19.4, 1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4, 1.20.5, 1.20.6
 
 ### Fixed
 
