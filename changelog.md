@@ -9,6 +9,18 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.3] - 2024-06-16 (fabric, neoforge)
+
+Available versions:
+-   Fabric: 1.20.6
+-   Neoforge: 1.20.6
+
+### Changes
+
+-   The codebase has been rewritten to use Architectury in order to easy development of the mod for different loaders.
+-   NeoForge support added!
+-   Forge support has been temporally paused (hopefully) due to instability and being unable to build for 1.20.6 and up.
+
 ## [1.5.2] - 2024-06-01 (fabric)
 
 Available versions:

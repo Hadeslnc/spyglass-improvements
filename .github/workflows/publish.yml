@@ -1,41 +1,51 @@
 
-name: Publish Spylgass-Improvements to CurseForge and Modrinth
+name: Publish Spylgass Improvements to CurseForge and Modrinth
 
 on:
   workflow_dispatch:
     inputs:
       curseforge:
         default: true
+        description: 'Publish in curseforge'
         type: boolean
       modrinth:
         default: true
+        description: 'Publish in modrinth'
         type: boolean
-      loader:
-        description: 'Mod loader. Ex: forge Ex: fabric'
-        default: fabric
-        required: true
-        type: string
+      fabric:
+        default: true
+        description: 'Publish in fabric version'
+        type: boolean
+      neoforge:
+        default: true
+        description: 'Publish in neoforge version'
+        type: boolean
       minecraftVersion:
         description: 'Minecraft Version. Ex: [1.20.2,1.21)'
-        default: '[1.20.2,1.20.5)'
+        default: '[1.20.2,1.21)'
+        required: true
+      minecraftBaseVersion:
+        description: 'Minecraft Version. Ex: 1.20.2'
+        default: '1.20.6'
         required: true
       javaVersion:
         required: true
-        default: 17
+        default: 21
         type: number
       modVersion:
         required: true
-        default: '1.5+mc1.20.2+fabric'
-        description: 'Mod version string. Ex: 1.5+mc1.20.2+forge'
+        default: '1.5.3'
+        description: 'Mod version string. Ex: 1.5'
         type: string
       releaseName:
         required: true
-        default: '[1.20.2 Fabric] Spyglass Improvements 1.5'
-        description: 'Mod publish name. Ex: [1.20.2 Fabric] Spyglass Improvements 1.5'
+        default: 'Spyglass Improvements 1.5.3'
+        description: 'Mod publish name. Ex: Spyglass Improvements'
         type: string
 
 env:
   MINECRAFT_VERSION: ${{ inputs.minecraftVersion }}
+  MINECRAFT_BASE_VERSION: ${{ inputs.minecraftBaseVersion }}
   JAVA_VERSION: ${{ inputs.javaVersion }}
   VERSION: ${{ inputs.modVersion }}
   RELEASE_NAME: ${{ inputs.releaseName }}
@@ -70,39 +80,92 @@ jobs:
       - name: Build
         run: ./gradlew clean build
 
-      - name: Publish (CurseForge)
-        if: ${{ inputs.curseforge }}
+      - name: Publish neoforge (CurseForge)
+        if: ${{ inputs.curseforge && inputs.neoforge}}
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-id: 571264
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
 
-          name: "${{env.RELEASE_NAME}}"
-          version: "${{env.VERSION}}"
+          files: |
+            neoforge/build/libs/!(*-@(dev|sources|javadoc)).jar
+            neoforge/build/libs/*-@(dev|sources|javadoc).jar
+
+          name: "[NeoForge ${{MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
+          version: "${{env.VERSION}}+mc${{MINECRAFT_BASE_VERSION}}+neoforge"
+          version-type: release
+          changelog-file: changelog.md
+          dependencies: |
+            curios(optional)
+
+          loaders: "neoforge"
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
+      - name: Publish fabric (CurseForge)
+        if: ${{ inputs.curseforge && inputs.fabric}}
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-id: 571264
+          curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
+
+          files: |
+            fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+            fabric/build/libs/*-@(dev|sources|javadoc).jar
+
+          name: "[Fabric ${{MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
+          version: "${{env.VERSION}}+mc${{MINECRAFT_BASE_VERSION}}+fabric"
           version-type: release
           changelog-file: changelog.md
           dependencies: |
             trinkets(optional)
 
-          loaders: "${{ inputs.loader }}"
+          loaders: "fabric"
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
 
-      - name: Publish (Modrinth)
-        if: ${{ inputs.modrinth }}
+      - name: Publish NeoForge (Modrinth)
+        if: ${{ inputs.modrinth && inputs.neoforge }}
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           modrinth-id: Z6ykjRlM
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
           modrinth-featured: true
 
-          name: "${{env.RELEASE_NAME}}"
-          version: "${{env.VERSION}}"
+          files: |
+            neoforge/build/libs/!(*-@(dev|sources|javadoc)).jar
+            neoforge/build/libs/*-@(dev|sources|javadoc).jar
+
+          name: "[NeoForge ${{MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
+          version: "${{env.VERSION}}+mc${{MINECRAFT_BASE_VERSION}}+neoforge"
+          version-type: release
+          changelog-file: changelog.md
+          dependencies: |
+            curios(optional)
+
+          loaders: "neoforge"
+          game-versions: "${{env.MINECRAFT_VERSION}}"
+          java: "${{env.JAVA_VERSION}}"
+
+      - name: Publish Fabric (Modrinth)
+        if: ${{ inputs.modrinth && inputs.fabric }}
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: Z6ykjRlM
+          modrinth-token: "${{env.MODRINTH_TOKEN}}"
+          modrinth-featured: true
+
+          files: |
+            fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
+            fabric/build/libs/*-@(dev|sources|javadoc).jar
+
+          name: "[Fabric ${{MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
+          version: "${{env.VERSION}}+mc${{MINECRAFT_BASE_VERSION}}+fabric"
           version-type: release
           changelog-file: changelog.md
           dependencies: |
             trinkets(optional)
 
-          loaders: "${{ inputs.loader }}"
+          loaders: "fabric"
           game-versions: "${{env.MINECRAFT_VERSION}}"
           java: "${{env.JAVA_VERSION}}"
