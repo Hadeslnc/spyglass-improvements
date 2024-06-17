@@ -22,10 +22,10 @@ on:
         type: boolean
       minecraftVersion:
         description: 'Minecraft Version. Ex: [1.20.2,1.21)'
-        default: '[1.20.2,1.21)'
+        default: '[1.20.6,1.21)'
         required: true
       minecraftBaseVersion:
-        description: 'Minecraft Version. Ex: 1.20.2'
+        description: 'Minecraft Base Version. Ex: 1.20.2'
         default: '1.20.6'
         required: true
       javaVersion:
@@ -39,7 +39,7 @@ on:
         type: string
       releaseName:
         required: true
-        default: 'Spyglass Improvements 1.5.3'
+        default: 'Spyglass Improvements'
         description: 'Mod publish name. Ex: Spyglass Improvements'
         type: string
 
