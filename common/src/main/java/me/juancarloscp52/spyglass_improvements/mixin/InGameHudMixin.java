@@ -1,6 +1,7 @@
 package me.juancarloscp52.spyglass_improvements.mixin;
 
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
@@ -18,14 +19,14 @@ public class InGameHudMixin {
     @ModifyArg(method = "renderSpyglassOverlay",at = @At(value = "INVOKE",target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lnet/minecraft/resources/ResourceLocation;IIIFFIIII)V"),index = 0)
     public ResourceLocation setTexture(ResourceLocation resourceLocation){
         return switch (SpyglassImprovementsClient.getInstance().settings.overlay) {
-            case 1 -> new ResourceLocation("spyglass_improvements", "textures/spyglass_scope_clear.png");
-            case 2 -> new ResourceLocation("spyglass_improvements", "textures/spyglass_scope_circle.png");
+            case 1 -> ResourceLocation.fromNamespaceAndPath("spyglass_improvements", "textures/spyglass_scope_clear.png");
+            case 2 -> ResourceLocation.fromNamespaceAndPath("spyglass_improvements", "textures/spyglass_scope_circle.png");
             default -> resourceLocation;
         };
     }
     // toggle renderCrosshair depending on settings
     @Inject(method = "renderCrosshair", at = @At("HEAD"), cancellable = true)
-    public void renderCrosshair(GuiGraphics guiGraphics, float f, CallbackInfo ci){
+    public void renderCrosshair(GuiGraphics guiGraphics, DeltaTracker deltaTracker, CallbackInfo ci){
         if(!SpyglassImprovementsClient.getInstance().settings.showCrossHair && Minecraft.getInstance().player!=null && Minecraft.getInstance().player.isScoping())
             ci.cancel();
     }

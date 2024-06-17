@@ -37,7 +37,7 @@ dependencies {
     neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
 
     // To test soft Curios dependency, (un)comment the runtimeOnly line below when running runClient and runServer tasks
-    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}"
+    //runtimeOnly "top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}"
     compileOnly "top.theillusivec4.curios:curios-neoforge:${rootProject.curios_version}:api"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
