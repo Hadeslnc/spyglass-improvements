@@ -91,8 +91,8 @@ jobs:
             neoforge/build/libs/!(*-@(dev|sources|javadoc)).jar
             neoforge/build/libs/*-@(dev|sources|javadoc).jar
 
-          name: "[NeoForge ${{MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
-          version: "${{env.VERSION}}+mc${{MINECRAFT_BASE_VERSION}}+neoforge"
+          name: "[NeoForge ${{env.MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
+          version: "${{env.VERSION}}+mc${{env.MINECRAFT_BASE_VERSION}}+neoforge"
           version-type: release
           changelog-file: changelog.md
           dependencies: |
@@ -113,8 +113,8 @@ jobs:
             fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
             fabric/build/libs/*-@(dev|sources|javadoc).jar
 
-          name: "[Fabric ${{MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
-          version: "${{env.VERSION}}+mc${{MINECRAFT_BASE_VERSION}}+fabric"
+          name: "[Fabric ${{env.MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
+          version: "${{env.VERSION}}+mc${{env.MINECRAFT_BASE_VERSION}}+fabric"
           version-type: release
           changelog-file: changelog.md
           dependencies: |
@@ -136,8 +136,8 @@ jobs:
             neoforge/build/libs/!(*-@(dev|sources|javadoc)).jar
             neoforge/build/libs/*-@(dev|sources|javadoc).jar
 
-          name: "[NeoForge ${{MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
-          version: "${{env.VERSION}}+mc${{MINECRAFT_BASE_VERSION}}+neoforge"
+          name: "[NeoForge ${{env.MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
+          version: "${{env.VERSION}}+mc${{env.MINECRAFT_BASE_VERSION}}+neoforge"
           version-type: release
           changelog-file: changelog.md
           dependencies: |
@@ -159,8 +159,8 @@ jobs:
             fabric/build/libs/!(*-@(dev|sources|javadoc)).jar
             fabric/build/libs/*-@(dev|sources|javadoc).jar
 
-          name: "[Fabric ${{MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
-          version: "${{env.VERSION}}+mc${{MINECRAFT_BASE_VERSION}}+fabric"
+          name: "[Fabric ${{env.MINECRAFT_BASE_VERSION}}] ${{env.RELEASE_NAME}} ${{env.VERSION}}"
+          version: "${{env.VERSION}}+mc${{env.MINECRAFT_BASE_VERSION}}+fabric"
           version-type: release
           changelog-file: changelog.md
           dependencies: |
