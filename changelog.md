@@ -9,6 +9,20 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.4] - 2024-06-16 (fabric, neoforge)
+
+Available versions:
+-   Fabric: 1.21
+-   Neoforge: 1.21
+
+### Fixed
+
+-   Fixed Curios and trinkets [Issue #53](https://github.com/juancarloscp52/spyglass-improvements/issues/53)
+
+### Changes
+-   Added JP_jp translation thanks to EndilCrafter
+-   Updated Neoforge version.
+
 ## [1.5.3] - 2024-06-16 (fabric, neoforge)
 
 Available versions:
