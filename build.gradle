@@ -6,7 +6,6 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '[6.0,6.2)', changing: true
         classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
     }
 }
@@ -14,18 +13,18 @@ buildscript {
 plugins {
     id 'eclipse'
     id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
 }
 
-apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'org.spongepowered.mixin'
 
 group = 'me.juancarloscp52'
 version = "${mod_version}+mc${minecraft_version}+forge"
-
-java {
-    archivesBaseName = mod_id
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+base {
+    archivesName = mod_id
 }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
 
 minecraft {
     // The mappings can be changed at any time and must be in the following format.
@@ -40,6 +39,8 @@ minecraft {
     // Use non-default mappings at your own risk. They may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
     mappings channel: mapping_channel, version: mapping_version
+    reobf = false
+
     copyIdeResources = true
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -70,17 +71,23 @@ minecraft {
         }
 
         client {
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            property 'forge.enabledGameTestNamespaces', mod_id
         }
 
         server {
-            workingDirectory project.file('run/server')
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
+        }
+
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', mod_id
         }
 
         data {
+            // example of overriding the workingDirectory set in configureEach above
+            workingDirectory project.file('run-data')
+
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
         }
@@ -88,7 +95,6 @@ minecraft {
 }
 
 mixin {
-    add sourceSets.main, "spyglass_improvements.refmap.json"
     config "spyglass_improvements.mixins.json"
 }
 
@@ -103,20 +109,19 @@ repositories {
 }
 
 dependencies {
-    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
-    // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // To test soft Curios dependency, (un)comment the runtimeOnly line below when running runClient and runServer tasks
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    //runtimeOnly "top.theillusivec4.curios:curios-forge:${curios_version}"
+    compileOnly "top.theillusivec4.curios:curios-forge:${curios_version}:api"
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
 
 // To update mods.toml automatically from gradle.properties
-processResources {
+tasks.named('processResources', ProcessResources).configure {
     var replaceProperties = [
             mod_id: mod_id,
             version: version,
@@ -134,7 +139,7 @@ processResources {
 }
 
 
-jar {
+tasks.named('jar', Jar).configure {
     manifest {
         attributes([
                 "Specification-Title"     : "spyglass_improvements",
@@ -143,9 +148,22 @@ jar {
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : version,
                 "Implementation-Vendor"   : "juancarloscp52",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                "MixinConfigs": "spyglass_improvements.mixins.json"
         ])
     }
 }
 
-jar.finalizedBy('reobfJar')
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+// Merge the resources and classes into the same directory.
+// This is done because java expects modules to be in a single directory.
+// And if we have it in multiple we have to do performance intensive hacks like having the UnionFileSystem
+// This will eventually be migrated to ForgeGradle so modders don't need to manually do it. But that is later.
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}

@@ -9,16 +9,83 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
-## [1.5] - 2024-01-31
+## [1.5.5-forge] - 2024-08-06 (forge)
+
+**IMPORTANT**: This is a special version branched out from forge 1.5(.0) release, since architectury does not work with forge at the moment.
+Although functionality-wise is on part with 1.5.4 fabric/neo the codebase is very much different, that's why the clear differentiation.
+
+*Forge is very unstable lately, at least for mod-devs so expect further delays with future versions.*
 
 Available versions:
+-   Forge: 1.21
 
+### Changes
+-   Port to 1.21
+-   Added ZH_TW translation thanks to yichifauzi
+-   Added JP_jp translation thanks to EndilCrafter (Same as 1.5.4)
+
+## [1.5.4] - 2024-06-16 (fabric, neoforge)
+
+Available versions:
+-   Fabric: 1.21
+-   Neoforge: 1.21
+
+### Fixed
+
+-   Fixed Curios and trinkets [Issue #53](https://github.com/juancarloscp52/spyglass-improvements/issues/53)
+
+### Changes
+-   Added JP_jp translation thanks to EndilCrafter
+-   Updated Neoforge version.
+
+## [1.5.3] - 2024-06-16 (fabric, neoforge)
+
+Available versions:
+-   Fabric: 1.20.6
+-   Neoforge: 1.20.6
+
+### Changes
+
+-   The codebase has been rewritten to use Architectury in order to easy development of the mod for different loaders.
+-   NeoForge support added!
+-   Forge support has been temporally paused (hopefully) due to instability and being unable to build for 1.20.6 and up.
+
+## [1.5.2] - 2024-06-01 (fabric)
+
+Available versions:
+-   Fabric: 1.20.5, 1.20.6
+
+### Fixed
+
+-   Fabric:
+    - Fixed Spyglass settings button position.
+
+
+## [1.5.1] - 2024-04-27 (fabric)
+
+Available versions:
+-   Fabric: 1.18.2, 1.19.4, 1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4, 1.20.5, 1.20.6
+
+### Fixed
+
+-   Fabric:
+    - Fixed Spyglass not toggling while playing on servers in the following cases:
+        - Spyglass would not toggle when in creative mode.
+        - Spyglass would not toggle when the item is located in the trinket space.*
+            - *NOTE:* When using trinkets on multiplayer, Spyglass-Improvements should also be installed on server side.
+
+## [1.5] - 2024-01-31 (forge) - 2024-03-27 (fabric)
+
+Available versions:
+-   Fabric, Quilt: 1.18.2, 1.19, 1.19.1, 1.19.2, 1.19.3, 1.19.4, 1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4
 -   Forge: 1.18.2, 1.19, 1.19.1, 1.19.2, 1.19.3, 1.19.4, 1.20, 1.20.1, 1.20.2, 1.20.3, 1.20.4
 
 ### Added
 
 -   Forge:
     -   **[Curios API](https://www.curseforge.com/minecraft/mc-mods/curios)** support - Spyglass can now be equipped in the belt Curios slot and accessed via key-bind (Thanks Kimchiloof).
+-   Fabric:
+    -   **[Trinkets ](https://www.curseforge.com/minecraft/mc-mods/trinkets)** support - Spyglass can now be equipped in the belt trinket slot and accessed via key-bind.
 
 ### Changed
 
@@ -26,6 +93,9 @@ Available versions:
     -   Mod now has a soft dependency on Curios API (on both client and server).
         -   If Curios API is not installed, the mod will still work on the client as before.
     -   Some backend code to make future updates easier.
+-   Fabric:
+    -   Mod now has a soft dependency on Trinkets (on both client and server).
+        -   If Trinkets API is not installed, the mod will still work on the client as before.
 
 ### Fixed
 

@@ -1,6 +1,5 @@
 package me.juancarloscp52.spyglass_improvements;
 
-
 import me.juancarloscp52.spyglass_improvements.config.SpyglassImprovementsConfig;
 import me.juancarloscp52.spyglass_improvements.curios.SpyglassCuriosRenderer;
 import net.minecraftforge.api.distmarker.Dist;

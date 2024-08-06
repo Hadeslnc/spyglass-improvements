@@ -13,8 +13,6 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderGuiOverlayEvent;
-import net.minecraftforge.client.gui.overlay.VanillaGuiOverlay;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -44,26 +42,6 @@ public class EventsHandler {
                     1.0f,
                     (float) (1.0f + (1 * (1 - SpyglassImprovementsClient.MULTIPLIER) * (1- SpyglassImprovementsClient.MULTIPLIER)))
             );
-            event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void onRenderGameOverlay(RenderGuiOverlayEvent.Pre event) {
-        if (client.player == null) return;
-
-        if (
-                event.getOverlay() == VanillaGuiOverlay.SPYGLASS.type()
-                        && SpyglassImprovementsConfig.overlay.get()==SpyglassImprovementsConfig.Overlays.None
-        ) {
-            event.setCanceled(true);
-        }
-
-        if (
-                event.getOverlay() == VanillaGuiOverlay.CROSSHAIR.type()
-                        && !SpyglassImprovementsConfig.showCrosshair.get()
-                        && client.player.isScoping()
-        ) {
             event.setCanceled(true);
         }
     }
