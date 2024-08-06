@@ -9,6 +9,30 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.5] - 2024-08-06 (fabric, neoforge)
+
+Available versions:
+-   Fabric: 1.21
+-   NeoForge: 1.21
+
+### Changes
+-   Added ZH_TW translation thanks to yichifauzi
+
+## [1.5.5-forge] - 2024-08-06 (forge)
+
+**IMPORTANT**: This is a special version branched out from forge 1.5(.0) release, since architectury does not work with forge at the moment.
+Although functionality-wise is on part with 1.5.4 fabric/neo the codebase is very much different, that's why the clear differentiation.
+
+*Forge is very unstable lately, at least for mod-devs so expect further delays with future versions.*
+
+Available versions:
+-   Forge: 1.21
+
+### Changes
+-   Port to 1.21
+-   Added ZH_TW translation thanks to yichifauzi
+-   Added JP_jp translation thanks to EndilCrafter (Same as 1.5.4)
+
 ## [1.5.4] - 2024-06-16 (fabric, neoforge)
 
 Available versions:
