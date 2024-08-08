@@ -1,5 +1,6 @@
 package me.juancarloscp52.spyglass_improvements.mixin;
 
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import me.juancarloscp52.spyglass_improvements.client.SpyglassImprovementsClient;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -32,10 +33,9 @@ public class InGameHudMixin {
     }
 
     // Toggle overlay.
-    @Inject(method = "renderSpyglassOverlay", at = @At("HEAD"), cancellable = true)
-    public void noRender(GuiGraphics guiGraphics, float f, CallbackInfo ci){ // No overlay.
-        if(SpyglassImprovementsClient.getInstance().settings.overlay == 3)
-            ci.cancel();
+    @WrapWithCondition(method = "Lnet/minecraft/client/gui/Gui;renderCameraOverlays(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;renderSpyglassOverlay(Lnet/minecraft/client/gui/GuiGraphics;F)V"))
+    public boolean DoNotRenderIfNoneOverlay(Gui instance, GuiGraphics guiGraphics, float f){ // No overlay.
+        return SpyglassImprovementsClient.getInstance().settings.overlay != 3;
     }
 
 }
