@@ -23,7 +23,7 @@ public abstract class AbstractClientPlayerEntityMixin extends Player {
     @ModifyReturnValue(method = "getFieldOfViewModifier", at = @At("RETURN"))
     public float fovMultiplier(float original){
         if(Minecraft.getInstance().options.getCameraType().isFirstPerson() && isScoping())
-            return SpyglassImprovementsClient.MULTIPLIER;
+            return original * SpyglassImprovementsClient.MULTIPLIER;
         return original;
     }
 
