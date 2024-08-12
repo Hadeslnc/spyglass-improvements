@@ -9,6 +9,16 @@ Find your version by looking for the file for your mod-loader:
 -   spyglass_improvements-`<mod-version>`+mc`<mc-version>`+forge.jar
 -   spyglass-improvements-`<mod-version>`+mc`<mc-version>`+fabric.jar
 
+## [1.5.6] - 2024-08-12 (fabric, neoforge)
+
+Available versions:
+-   Fabric: 1.21
+-   NeoForge: 1.21
+
+### Changes
+-   Added RU_RU translation thanks to Hadeslnc
+-   Improved intermod compatibility due to using less invasive mixins.
+
 ## [1.5.5] - 2024-08-06 (fabric, neoforge)
 
 Available versions:
